@@ -7,14 +7,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "blogs")
+@Table(name = "posts")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @AllArgsConstructor
 @Builder
-public class Blog {
+public class Post {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

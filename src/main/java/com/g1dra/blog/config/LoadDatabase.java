@@ -1,7 +1,7 @@
 package com.g1dra.blog.config;
 
-import com.g1dra.blog.model.Blog;
-import com.g1dra.blog.repository.BlogRepository;
+import com.g1dra.blog.model.Post;
+import com.g1dra.blog.repository.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,11 +28,11 @@ public class LoadDatabase {
     Resource resourceFile;
 
     @Bean
-    CommandLineRunner initDatabase(BlogRepository blogRepository) {
+    CommandLineRunner initDatabase(PostRepository postRepository) {
         return args -> {
-            if (blogRepository.count() == 0) {
-                log.info("Preloading " + blogRepository.save(
-                        Blog.builder()
+            if (postRepository.count() == 0) {
+                log.info("Preloading " + postRepository.save(
+                        Post.builder()
                                 .title("Hello World!")
                                 .content(asString(resourceFile))
                                 .build()));
