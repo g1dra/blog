@@ -2,18 +2,18 @@ package com.g1dra.blog.model;
 
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "posts")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @AllArgsConstructor
 @Builder
+@RedisHash("Posts")
 public class Post {
 
     @Id

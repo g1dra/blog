@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,6 +23,8 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<List<Post>> posts() {
-        return new ResponseEntity<>(postRepository.findAll(), HttpStatus.OK);
+        List<Post> result = new ArrayList<Post>();
+        postRepository.findAll().forEach(result::add);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

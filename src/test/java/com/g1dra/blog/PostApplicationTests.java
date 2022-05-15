@@ -32,5 +32,4 @@ class PostApplicationTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].title", is("Hello World!")));
     }
-
 }
