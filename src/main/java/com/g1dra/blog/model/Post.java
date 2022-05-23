@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     public long id;
 
     public String title;
