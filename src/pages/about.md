@@ -3,35 +3,25 @@ layout: ../layouts/AboutLayout.astro
 title: "About"
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+I am a Team Lead and Senior Backend Developer with more than a decade of professional experience. My background is primarily rooted in backend engineering, with a strong emphasis on designing systems that are reliable, maintainable, and aligned with real-world business needs.
 
-![Astro Paper](public/astropaper-og.jpg)
+In my current role, I lead teams on complex, high-impact projects, where I am responsible not only for technical direction but also for planning, estimation, and coordination across stakeholders. I am comfortable balancing hands-on engineering work with higher-level responsibilities such as mentoring engineers, reviewing architectural decisions, and guiding teams through delivery challenges.
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+---
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+# General Information
 
-## Features
+- **Full Name:** Darko Vučetić
+- **Location:** Podgorica, Montenegro
+- **Email:** darko.vucetic7@gmail.com
+- **Phone:** +382 69 559 834
+- **GitHub:** https://github.com/g1dra
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+---
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+# Education
 
-and so much more.
+**Bachelor of Engineering (BSc)**  
+Faculty of Electrical Engineering, University of Montenegro  
+Podgorica, Montenegro
 
-## Show your support
-
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
-
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
-
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
-
-Kyay zuu! 🙏🏼
