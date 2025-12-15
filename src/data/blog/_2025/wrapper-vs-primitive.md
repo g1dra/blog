@@ -144,8 +144,7 @@ Object Header (12 bytes total):
 ![boxing-cat](@/assets/images/cat.png)
 My cat Luna!
 
-One of the key features that bridges the gap between primitives and wrapper classes is **autoboxing
-** and **unboxing**.
+One of the key features that bridges the gap between primitives and wrapper classes is **autoboxing** and **unboxing**.
 
 - **Autoboxing**: The automatic conversion of a primitive type to its corresponding wrapper class.  
   Example:
@@ -162,8 +161,7 @@ One of the key features that bridges the gap between primitives and wrapper clas
   int num = obj;  // Unboxing (Integer -> int)
   ```
 
-While autoboxing and unboxing make the language more convenient, they can also introduce *
-*performance pitfalls** and
+While autoboxing and unboxing make the language more convenient, they can also introduce **performance pitfalls** and
 **NullPointerExceptions** if not used carefully (e.g., unboxing a `null` `Integer`).
 
 ## Key Differences
