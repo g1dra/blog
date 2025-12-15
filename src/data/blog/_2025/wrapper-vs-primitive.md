@@ -358,8 +358,10 @@ void main() {
 void main() {
   Boolean flag1 = Boolean.TRUE;
   Boolean flag2 = Boolean.TRUE;
-// Use equals() instead of ==
-  boolean result = flag1.equals(flag2);
+// Use "equals()" that check objects value instead of "==: that compares object reference
+  boolean result = flag1.equals(flag2); // true (correct way)
+  boolean result2 = flag1==flag2; // true (incorrect as you can see flag1 and flag2 are different objects!)
+  // but due to JVM caching behavior, Boolean and Integer are cached reduce memory allocation and improve performance
 }
 ```
 
