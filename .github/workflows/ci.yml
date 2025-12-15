@@ -1,50 +1,43 @@
-name: CI
-
-permissions:
-  contents: read
+name: Deploy Astro Blog
 
 on:
-  pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
-      - reopened
-  workflow_call:
+  push:
+    branches: [ main ]      # deploy on pushes to main
+  workflow_dispatch:        # allow manual runs from GitHub UI
 
 jobs:
-  build:
-    name: Code standards & build
+  build-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
-
-    strategy:
-      matrix:
-        node-version: [20]
 
     steps:
-      - name: "☁️ Checkout repository"
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: "📦 Install pnpm"
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.11.1
-
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
+          node-version: '22'   # or '20' if your project uses that
+          cache: 'npm'
 
-      - name: "📦 Install dependencies"
-        run: pnpm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: "🔎 Lint code"
-        run: pnpm run lint
+      - name: Build Astro site
+        run: npm run build
 
-      - name: "📝 Checking code format"
-        run: pnpm run format:check
+      # Upload dist/ to the droplet via rsync over SSH
+      - name: Deploy to DigitalOcean droplet via rsync
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DROPLET_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
 
-      - name: "🚀 Build the project"
-        run: pnpm run build
+          # Avoid host key prompt on first connection
+          echo "Host *
+  StrictHostKeyChecking no
+" > ~/.ssh/config
+
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/id_rsa" \
+            dist/ \
+            ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }}:${{ secrets.DROPLET_PATH }}/
