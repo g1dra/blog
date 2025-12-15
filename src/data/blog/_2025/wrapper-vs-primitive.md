@@ -399,9 +399,33 @@ collections, frameworks, or when null values are part of your domain model.
 
 ## Additional Resources
 
-- [Official Java Documentation on Primitive Data Types](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html)
-- [Autoboxing/Unboxing Documentation](https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html)
-- [Effective Java by Joshua Bloch](https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997)
-- [Java Performance: The Definitive Guide](https://www.oreilly.com/library/view/java-performance-the/9781449363512/)
+<a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html"
+target="_blank"
+rel="noopener noreferrer"
+referrerpolicy="origin">
+Official Java Documentation on Primitive Data Types
+</a>
+
+<a href="https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html"
+target="_blank"
+rel="noopener noreferrer"
+referrerpolicy="origin">
+Autoboxing/Unboxing Documentation
+</a>
+
+<a href="https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997"
+target="_blank"
+rel="noopener noreferrer"
+referrerpolicy="origin">
+Effective Java by Joshua Bloch
+</a>
+
+<a href="https://www.oreilly.com/library/view/java-performance-the/9781449363512/"
+target="_blank"
+rel="noopener noreferrer"
+referrerpolicy="origin">
+Java Performance: The Definitive Guide
+</a>
+
 
 Happy coding!
