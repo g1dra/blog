@@ -33,9 +33,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
 
           # Avoid host key prompt on first connection
-          echo "Host *
-  StrictHostKeyChecking no
-" > ~/.ssh/config
+          echo -e "Host *\n  StrictHostKeyChecking no" > ~/.ssh/config
 
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/id_rsa" \
