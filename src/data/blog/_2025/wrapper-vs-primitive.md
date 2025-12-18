@@ -18,11 +18,11 @@ heroImage:
 
 My colleague asked me: _"Why we don't use primitives more? It is faster!"_.
 
-I didn’t really have a good answer at the time, so it motivated me to write this article.
+I didn’t have a good answer at the time, so it motivated me to write this article.
 
 ## Table of contents
 
-## Introduction
+# Introduction
 
 Working with Java often involves juggling two types of data representations: **primitive types** (
 such as `int`,
@@ -33,6 +33,8 @@ this post, we will
 explore the reasons behind having two categories of types in Java, how they differ, and scenarios
 where you'd want to
 use one over the other.
+
+Code samples are compatible with Java 25 and can be executed as-is.
 
 ## What Are Primitives in Java?
 
@@ -73,14 +75,14 @@ boolean isValid = true;
 Wrapper classes are **object representations** of the primitive types. Each primitive has a
 corresponding wrapper class:
 
-1. `Byte`
-2. `Short`
-3. `Integer`
-4. `Long`
-5. `Float`
-6. `Double`
-7. `Character`
-8. `Boolean`
+1. `Byte` - 16 bytes
+2. `Short` - 16 bytes
+3. `Integer` - 16 bytes
+4. `Long` - 24 bytes
+5. `Float` - 16 bytes
+6. `Double` - 24 bytes
+7. `Character` - 16 bytes
+8. `Boolean` - 16 bytes
 
 ### Key Characteristics of Wrapper Classes
 
@@ -95,9 +97,9 @@ corresponding wrapper class:
 ```shell
 Primitive int (4 bytes)
 
-┌──────────────────────────────────────────────┐
-│ 00000000 00000000 00000000 00000000          │
-└──────────────────────────────────────────────┘
+┌─────────────────────────────────────┐
+│ 00000000 00000000 00000000 00000000 │
+└─────────────────────────────────────┘
  <------------- 4 bytes (32 bits) ------------>
 
 ```
@@ -109,13 +111,14 @@ Primitive int (4 bytes)
 * No overhead (object header) - every bit is used for the actual value
 
 ```shell
-Integer Object Layout (HotSpot JVM, 64-bit, compressed OOPS)
+Integer object (16 bytes total)
 
-┌───────────────────────┬──────────────┬───────────────┬───────────────┐
-│     Object Header     │  Mark Word   │  Klass Pointer│    Value      │
-│       (12 bytes)      │  (8 bytes)   │  (4 bytes)    │  (4 bytes)    │
-└───────────────────────┴──────────────┴───────────────┴───────────────┘
-<-------------------------16 bytes total ----------------------------->
+┌───────────────────────────────────────────────────────────────────────────────┐
+│ Mark Word (8 bytes) │ Klass Pointer (4 bytes) │ int value (4 bytes)           │
+└───────────────────────────────────────────────────────────────────────────────┘
+ <--------------------- Object Header (12 bytes) -------------------> < 4 bytes >
+ <------------------------------------ 16 bytes total -------------------------->
+
 
 ```
 
@@ -147,7 +150,7 @@ My cat Luna!
 One of the key features that bridges the gap between primitives and wrapper classes is **autoboxing** and **unboxing**.
 
 - **Autoboxing**: The automatic conversion of a primitive type to its corresponding wrapper class.  
-  Example:
+
   ```java
   int num = 5;
   Integer obj = num;  // Autoboxing (int -> Integer)
@@ -155,7 +158,7 @@ One of the key features that bridges the gap between primitives and wrapper clas
 
 - **Unboxing**: The automatic conversion of a wrapper class object to its corresponding primitive
   type.  
-  Example:
+
   ```java
   Integer obj = 5;
   int num = obj;  // Unboxing (Integer -> int)
@@ -176,20 +179,20 @@ While autoboxing and unboxing make the language more convenient, they can also i
     int primitive = i + 1;  // Primitive operation
     }
     long primitiveTime = System.nanoTime() - start;
-    IO.println(primitiveTime);
+    IO.println(primitiveTime); // 2219262
     start = System.nanoTime();
     for (Integer i = 0; i < 10_000_000; i++) {
     Integer wrapper = i + 1;  // Boxing/unboxing operation
     }
     
     long wrapperTime = System.nanoTime() - start;
-    IO.println(wrapperTime);
+    IO.println(wrapperTime); // 68629061
     
     var ratio = (double) primitiveTime * 100 / wrapperTime;
-    IO.println(ratio);
+    IO.println(ratio); //  ~ 3.233%
     
     var timesFaster = (double) wrapperTime / primitiveTime;
-    IO.println(timesFaster);
+    IO.println(timesFaster); //  ~ 30 times faster when using primitives
     }
    ```
    Wrapper operations are typically 15–25 times slower than primitive operations in tight loops.
@@ -275,9 +278,7 @@ public class ProductDTO {
 }
 ```
 
-## Modern Java Features
-
-### Optional and Wrapper Classes
+3. **Optional and Wrapper Classes**
 
 ```java
 public class UserService {
@@ -289,7 +290,7 @@ public class UserService {
 }
 ```
 
-### Stream API Considerations
+4. **Stream API Considerations**
 
 ```java
     void main() {
@@ -333,23 +334,36 @@ void main() {
 // Better approach
   IntStream.range(0, 1000000)
       .boxed()
-      .collect(Collectors.toList());
+      .toList();
 }
 ```
 
-3. **Comparing Values**
+3. **Comparing Values of Object**
 
+**==** compares object references, not values.
+Never use == to compare wrapper objects unless you explicitly want reference equality.
 ```java
 void main() {
   Integer x = 127;
   Integer y = 127;
-  System.out.println(x == y);      // true (due to caching)
+  IO.println(x == y);      // true (due to caching of JVM, Carefully!)
+}
+```
 
+**.equals()** compares object values
+```java
+void main() {
   Integer a = 128;
   Integer b = 128;
-  System.out.println(a == b);      // false
-  System.out.println(a.equals(b)); // true (correct way)
+  IO.println(a == b);      // false
+  IO.println(a.equals(b)); // true (correct way to compare object values)
 }
+```
+
+JVM caches Wrapper Objects from -128 to 127 for **performance and memory efficiency**
+```java
+Integer x = 127; // This is equivalent to Integer.valueOf():
+Integer x = Integer.valueOf(127); // returns a cached instance 
 ```
 
 4. **Boolean Comparisons**
@@ -358,10 +372,10 @@ void main() {
 void main() {
   Boolean flag1 = Boolean.TRUE;
   Boolean flag2 = Boolean.TRUE;
-// Use "equals()" that check objects value instead of "==: that compares object reference
+  
   boolean result = flag1.equals(flag2); // true (correct way)
-  boolean result2 = flag1==flag2; // true (incorrect as you can see flag1 and flag2 are different objects!)
-  // but due to JVM caching behavior, Boolean and Integer are cached reduce memory allocation and improve performance
+  boolean result2 = flag1 == flag2; // true (incorrect as you can see flag1 and flag2 are different objects!)
+  // but due to JVM caching behavior result2 is true
 }
 ```
 
@@ -395,7 +409,7 @@ collections, frameworks, or when null values are part of your domain model.
 | Nullability | Cannot be null               | Can be null                |
 | Performance | Fast                         | Slower                     |
 | Generics    | Not supported                | Supported                  |
-| Use Cases   | Math, loops, real-time logic | APIs, ORM, collections     |
+| Use Cases   | Math, loops, real-time logic | APIs, ORM, Collections     |
 
 ## Additional Resources
 
