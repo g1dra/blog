@@ -1,5 +1,5 @@
 ---
-title: 'Java Wrapper Classes vs. Primitives'
+title: 'Java Wrapper Classes vs Primitives'
 author: 'Darko Vučetić'
 slug: 'wrapper-vs-primitives'
 pubDatetime: 2025-12-11T15:22:00Z
